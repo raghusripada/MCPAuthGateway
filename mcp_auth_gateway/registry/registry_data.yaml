@@ -1,0 +1,40 @@
+external_services:
+  google:
+    client_id: "YOUR_GOOGLE_CLIENT_ID_ENV_VAR_OR_VALUE" # Placeholder
+    client_secret: "YOUR_GOOGLE_CLIENT_SECRET_ENV_VAR_OR_VALUE" # Placeholder
+    auth_url: "https://accounts.google.com/o/oauth2/v2/auth"
+    token_url: "https://oauth2.googleapis.com/token"
+    redirect_url: "http://localhost:8000/oauth/callback/google" # Example callback
+    scopes:
+      - "https://www.googleapis.com/auth/drive.readonly"
+      - "https://www.googleapis.com/auth/userinfo.email"
+  github:
+    client_id: "YOUR_GITHUB_CLIENT_ID" # Placeholder
+    client_secret: "YOUR_GITHUB_CLIENT_SECRET" # Placeholder
+    auth_url: "https://github.com/login/oauth/authorize"
+    token_url: "https://github.com/login/oauth/access_token"
+    redirect_url: "http://localhost:8000/oauth/callback/github" # Example callback
+    scopes:
+      - "repo"
+      - "user:email"
+
+mcp_servers:
+  google_drive_reader:
+    name: "Google Drive Reader MCP Server"
+    description: "MCP Server for accessing Google Drive files"
+    host: "google-mcp-server.example.svc.cluster.local" # Internal k8s address
+    port: 8080
+    health_check_path: "/health"
+    target_external_service: "google" # Links to the 'google' entry in external_services
+    default_scopes_for_target_service:
+      - "https://www.googleapis.com/auth/drive.readonly"
+  
+  github_issue_manager:
+    name: "GitHub Issue Manager MCP Server"
+    description: "MCP Server for managing GitHub issues"
+    host: "github-mcp-server.example.svc.cluster.local"
+    port: 8080
+    health_check_path: "/health"
+    target_external_service: "github"
+    default_scopes_for_target_service:
+      - "repo"
