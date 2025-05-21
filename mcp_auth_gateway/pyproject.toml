@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "mcp-auth-gateway"
+version = "0.1.0"
+description = "MCP Authentication Gateway"
+authors = ["Your Name <you@example.com>"] # Placeholder, can be updated
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.100.0" # Using a recent version
+uvicorn = {extras = ["standard"], version = "^0.22.0"}
+pydantic = "^1.10.0" # Compatible with FastAPI
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+redis = "^4.0.0" # Check for latest stable version
+requests = "^2.25.0" # Check for latest stable version
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0" # For testing
+httpx = "^0.25.0" # For async testing of FastAPI endpoints
+flake8 = "^6.0.0" # For linting, was 3.x, 4.x, 5.x
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+httpx = "^0.25.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
